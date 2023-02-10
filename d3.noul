@@ -1,0 +1,31 @@
+raw_input := "vJrwpWtwJgWrhcsFMMfFFhFp
+jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+PmmdzqPrVvPwwTWBwg
+wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+ttgJtRGJQctTZtZT
+CrZsJsPPZsGzwwsLwLmpwMDw";
+
+import "lib.noul";
+
+p := \c -> if (c > 'Z') ord(c) - ord('a') + 1 else ord(c) - ord('A') + 27;
+
+print! raw_input
+	split '\n'
+	map (\ln -> ln
+	     group (len(ln)//2)
+	     map set
+	     fold &&
+	     then (\l -> p(list(l)[0])))
+	then sum
+	;
+
+print! raw_input
+	split '\n'
+	group 3
+	lmap set
+	map (_ 
+		fold &&
+		then (\l -> list(l)[0])
+		then p)
+	then sum
+	;

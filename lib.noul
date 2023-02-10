@@ -1,0 +1,24 @@
+map2 := \ll, fn -> ll map (map fn);
+
+clamp := \x, floor, ceil -> x max floor then (min ceil);
+
+scan_ := \rng, accum, fn -> rng
+    map \el ->
+    (
+        out := fn(accum, el);
+        accum = out[0];
+        out[1]
+    )
+    ;
+
+adjacent := \rng -> rng zip (null .+ rng);
+
+zip_longest := \rng0, rng1, d0, d1 ->
+    (for (i <- 0 til max(rng0.len, rng1.len))
+        yield [
+            (if (i < rng0.len) rng0[i] else d0),
+            (if (i < rng1.len) rng1[i] else d1)]
+            );
+
+between := \x0, x1 -> if (x0<x1) x0 to x1 else x0 to x1 by (-1);
+

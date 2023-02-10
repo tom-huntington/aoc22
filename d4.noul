@@ -1,0 +1,36 @@
+puzzle_input := "2-4,6-8
+2-3,4-5
+5-7,7-9
+2-8,3-7
+6-6,4-6
+2-6,4-8";
+
+day := 4;
+import "advent-prelude.noul";
+
+puzzle_input = advent_input();
+
+contains_ := \l1, l2 -> l1[0] <= l2[0] and l2[1] <= l1[1];
+overlaps := \((a0, a1), (b0, b1)) -> not (a1 < b0 or b1 < a0);
+
+
+print! puzzle_input
+	.lines
+	map (_ split ','
+			map (_ split '-' 
+					map int))
+	map (\(l1, l2) -> l1 contains_ l2 or l2 contains_ l1)
+	then sum
+	;
+
+parseln := _ map (_ split ','
+				map (_ split '-' 
+					map int));
+
+print! puzzle_input
+	.lines
+	.parseln
+	map overlaps
+	then sum
+	;
+
